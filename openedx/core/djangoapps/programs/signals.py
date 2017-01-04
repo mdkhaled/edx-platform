@@ -34,11 +34,11 @@ def handle_course_cert_awarded(sender, user, course_key, mode, status, **kwargs)
         None
 
     """
+
     # Import here instead of top of file since this module gets imported before
     # the programs app is loaded, resulting in a Django deprecation warning.
-    from openedx.core.djangoapps.programs.models import ProgramsApiConfig
-
-    if not ProgramsApiConfig.current().is_certification_enabled:
+    from openedx.core.djangoapps.credentials.models import CredentialsApiConfig
+    if not CredentialsApiConfig.current().is_learner_issuance_enabled:
         return
 
     # schedule background task to process
