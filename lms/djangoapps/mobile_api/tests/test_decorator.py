@@ -6,7 +6,8 @@ Tests for mobile API utilities.
 import ddt
 from django.test import TestCase
 
-from mobile_api.utils import mobile_course_access, mobile_view
+from mobile_api.decorators import mobile_course_access
+from mobile_api.utils import mobile_view
 
 
 @ddt.ddt

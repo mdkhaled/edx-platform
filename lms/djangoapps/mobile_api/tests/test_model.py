@@ -5,7 +5,11 @@ from datetime import datetime
 import ddt
 from django.test import TestCase
 from pytz import UTC
-from mobile_api.models import AppVersionConfig, MobileApiConfig
+from mobile_api.models import (
+    AppVersionConfig,
+    MobileApiConfig,
+    IgnoreMobileAvailableFlagConfig
+)
 
 
 @ddt.ddt
@@ -113,3 +117,14 @@ class TestMobileApiConfig(TestCase):
         MobileApiConfig(video_profiles="").save()
         video_profile_list = MobileApiConfig.get_video_profiles()
         self.assertEqual(video_profile_list, [])
+
+
+class TestIgnoreMobileAvailableFlagConfig(TestCase):
+    """
+    Tests IgnoreMobileAvailableFlagConfig
+    """
+
+    def test_ignore_mobile_available_flag(self):
+        IgnoreMobileAvailableFlagConfig(mobile_available_override=True).save()
+        should_ignore_flag = IgnoreMobileAvailableFlagConfig.ignore_mobile_available_flag()
+        self.assertEqual(should_ignore_flag, True)

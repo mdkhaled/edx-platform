@@ -30,6 +30,7 @@ from courseware.access_response import (
 from courseware.tests.factories import UserFactory
 from student import auth
 from student.models import CourseEnrollment
+from mobile_api.models import IgnoreMobileAvailableFlagConfig
 from mobile_api.tests.test_milestones import MobileAPIMilestonesMixin
 
 
@@ -190,6 +191,26 @@ class MobileCourseAccessTestMixin(MobileAPIMilestonesMixin):
     def test_non_mobile_available(self, role, should_succeed):
         self.init_course_access()
         # set mobile_available to False for the test course
+        self.course.mobile_available = False
+        self.store.update_item(self.course, self.user.id)
+        self._verify_response(should_succeed, MobileAvailabilityError(), role)
+
+    # A tuple of Role Types and Boolean values that indicate whether access should be given to that role.
+    @ddt.data(
+        (auth.CourseBetaTesterRole, True),
+        (auth.CourseStaffRole, True),
+        (auth.CourseInstructorRole, True),
+        (None, True)
+    )
+    @ddt.unpack
+    @patch.dict(settings.FEATURES, {'ENABLE_MKTG_SITE': True})
+    def test_ignore_mobile_available_flag(self, role, should_succeed):
+        """
+        Verifies when IgnoreMobileAvailableFlagConfig's mobile_available_override is set
+        to true, course access disregards the mobile_availble flag for all roles.
+        """
+        IgnoreMobileAvailableFlagConfig(mobile_available_override=True).save()
+        self.init_course_access()
         self.course.mobile_available = False
         self.store.update_item(self.course, self.user.id)
         self._verify_response(should_succeed, MobileAvailabilityError(), role)
