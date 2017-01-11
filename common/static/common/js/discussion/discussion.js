@@ -99,7 +99,7 @@
                     data.text = options.search_text;
                     break;
                 case 'commentables':
-                    url = DiscussionUtil.urlFor('search');
+                    url = DiscussionUtil.urlFor('retrieve_discussion', options.commentable_ids);
                     data.commentable_ids = options.commentable_ids;
                     break;
                 case 'all':

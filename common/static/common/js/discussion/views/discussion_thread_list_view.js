@@ -91,14 +91,13 @@
             DiscussionThreadListView.prototype.initialize = function(options) {
                 var self = this;
                 this.courseSettings = options.courseSettings;
-                this.hideRefineBar = options.hideRefineBar;
                 this.supportsActiveThread = options.supportsActiveThread;
                 this.hideReadState = options.hideReadState || false;
                 this.displayedCollection = new Discussion(this.collection.models, {
                     pages: this.collection.pages
                 });
                 this.collection.on('change', this.reloadDisplayedCollection);
-                this.discussionIds = '';
+                this.discussionIds = this.$el.data('discussion-id') || '';
                 this.collection.on('reset', function(discussion) {
                     self.displayedCollection.current_page = discussion.current_page;
                     self.displayedCollection.pages = discussion.pages;
@@ -109,7 +108,7 @@
                 this.sidebar_padding = 10;
                 this.boardName = null;
                 this.current_search = '';
-                this.mode = 'all';
+                this.mode = options.mode || 'commentables';
                 this.showThreadPreview = true;
                 this.searchAlertCollection = new Backbone.Collection([], {
                     model: Backbone.Model
@@ -223,9 +222,6 @@
                 }
                 this.showMetadataAccordingToSort();
                 this.renderMorePages();
-                if (this.hideRefineBar) {
-                    this.$('.forum-nav-refine-bar').addClass('is-hidden');
-                }
                 this.trigger('threads:rendered');
             };
 

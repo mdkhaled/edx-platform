@@ -37,6 +37,15 @@ DiscussionSpecHelper, DiscussionUserProfileView) {
                 threadListView.render();
                 expect(threadListView.$('.forum-nav-thread-list').length).toBe(1);
             });
+
+            it('should ensure discussion thread list view mode is all', function() {
+                var discussionUserProfileView = createDiscussionUserProfileView(),
+                    threadListView;
+                discussionUserProfileView.render();
+                threadListView = discussionUserProfileView.discussionThreadListView;
+                threadListView.render();
+                expect(threadListView.mode).toBe('all');
+            });
         });
     });
 });

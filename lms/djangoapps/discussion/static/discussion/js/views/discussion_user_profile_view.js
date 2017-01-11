@@ -39,7 +39,7 @@
                         collection: this.discussion,
                         el: this.$('.inline-threads'),
                         courseSettings: this.courseSettings,
-                        hideRefineBar: true,  // TODO: re-enable the search/filter bar when it works correctly
+                        mode: this.mode,
                         // @TODO: On the profile page, thread read state for the viewing user is not accessible via API.
                         // Fix this when the Discussions API can support this query. Until then, hide read state.
                         hideReadState: true
