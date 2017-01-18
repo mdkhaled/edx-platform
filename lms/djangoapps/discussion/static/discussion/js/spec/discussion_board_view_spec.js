@@ -32,10 +32,8 @@
 
                 describe('Thread List View', function() {
                     it('should ensure the mode is all', function() {
-                        var discussionBoardView = createDiscussionBoardView(),
-                            threadListView;
-                        discussionBoardView.render();
-                        threadListView = discussionBoardView.discussionThreadListView;
+                        var discussionBoardView = createDiscussionBoardView().render(),
+                            threadListView = discussionBoardView.discussionThreadListView;
                         expect(threadListView.mode).toBe('all');
                     });
                 });
