@@ -198,6 +198,9 @@
                         isPrivilegedUser: DiscussionUtil.isPrivilegedUser()
                     })
                 );
+                if (this.hideReadState) {
+                    this.$('.forum-nav-filter-main').addClass('is-hidden');
+                }
                 this.$('.forum-nav-sort-control option').removeProp('selected');
                 this.$('.forum-nav-sort-control option[value=' + this.collection.sort_preference + ']')
                     .prop('selected', true);
@@ -279,6 +282,9 @@
                     break;
                 case 'followed':
                     options.user_id = window.user.id;
+                    break;
+                case 'user':
+                    options.user_id = this.$el.parent().data('user-id');
                     break;
                 case 'commentables':
                     options.commentable_ids = this.discussionIds;

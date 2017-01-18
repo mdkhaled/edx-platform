@@ -107,6 +107,10 @@
                     break;
                 case 'followed':
                     url = DiscussionUtil.urlFor('followed_threads', options.user_id);
+                    break;
+                case 'user':
+                    url = DiscussionUtil.urlFor('user_profile', options.user_id);
+                    break;
                 }
                 if (options.group_id) {
                     data.group_id = options.group_id;

@@ -26,7 +26,7 @@
                 initialize: function(options) {
                     this.courseSettings = options.courseSettings;
                     this.discussion = options.discussion;
-                    this.mode = 'all';
+                    this.mode = 'user';
                     this.listenTo(this.model, 'change', this.render);
                 },
 
