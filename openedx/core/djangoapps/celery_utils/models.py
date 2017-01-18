@@ -2,9 +2,14 @@
 Models to support persistent tasks.
 """
 
+import logging
+
+from celery import current_app
 from django.db import models
 from jsonfield import JSONField
 from model_utils.models import TimeStampedModel
+
+log = logging.getLogger(__name__)
 
 
 class FailedTask(TimeStampedModel):
@@ -22,6 +27,20 @@ class FailedTask(TimeStampedModel):
         index_together = [
             (u'task_name', u'exc'),
         ]
+
+    def reapply(self):
+        """
+        Enqueue new celery task with the same arguments as the failed task.
+        """
+        if self.datetime_resolved is not None:
+            raise TypeError(u'Cannot reapply a resolved task: {}'.format(self))
+        log.info(u'Reapplying failed task: {}'.format(self))
+        task_object = current_app.tasks[self.task_name]
+        task_object.apply_async(
+            args=self.args,
+            kwargs=self.kwargs,
+            task_id=self.task_id,
+        )
 
     def __unicode__(self):
         return u'FailedTask: {task_name}, args={args}, kwargs={kwargs} ({resolution})'.format(
