@@ -321,6 +321,11 @@
                         gettext('Additional posts could not be loaded. Refresh the page and try again.')
                     );
                 };
+                /*
+                The options object is being passed to the function below from discussion/discussion.js
+                which correspondingly forms the ajax url based on the mode via the DiscussionUtil.urlFor
+                from discussion/utils.js
+                */
                 return this.collection.retrieveAnotherPage(this.mode, options, {
                     sort_key: this.$('.forum-nav-sort-control').val()
                 }, error);
