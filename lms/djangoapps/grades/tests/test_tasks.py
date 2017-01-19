@@ -170,8 +170,8 @@ class RecalculateSubsectionGradeTest(ModuleStoreTestCase):
     # TODO (TNL-6225) Fix the number of SQL queries so they
     # don't grow linearly with the number of sequentials.
     @ddt.data(
-        (ModuleStoreEnum.Type.mongo, 1, 46),
-        (ModuleStoreEnum.Type.split, 3, 45),
+        (ModuleStoreEnum.Type.mongo, 1, 47),
+        (ModuleStoreEnum.Type.split, 3, 46),
     )
     @ddt.unpack
     def test_query_count_does_not_change_with_more_content(self, default_store, num_mongo_calls, num_sql_calls):
