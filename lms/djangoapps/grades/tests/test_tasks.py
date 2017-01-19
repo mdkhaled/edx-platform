@@ -121,8 +121,8 @@ class RecalculateSubsectionGradeTest(ModuleStoreTestCase):
         self.assertTrue(mock_subsection_signal.called)
 
     @ddt.data(
-        (ModuleStoreEnum.Type.mongo, 1, 23),
-        (ModuleStoreEnum.Type.split, 3, 22),
+        (ModuleStoreEnum.Type.mongo, 1, 24),
+        (ModuleStoreEnum.Type.split, 3, 23),
     )
     @ddt.unpack
     def test_subsection_grade_updated(self, default_store, num_mongo_calls, num_sql_calls):
