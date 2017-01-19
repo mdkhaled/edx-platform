@@ -95,7 +95,8 @@ class TransactionManagersTestCase(TransactionTestCase):
         another atomic.
         """
         if connection.vendor != 'mysql':
-            raise unittest.SkipTest('Only works on MySQL.')
+
+            raise unittest.SkipTest('Only works on MySQL, not {}.'.format(connection.vendor))
 
         outer_atomic()(do_nothing)()
 
