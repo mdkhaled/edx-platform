@@ -1,11 +1,11 @@
 """
 Reset persistent grades for learners.
 """
-from datetime import datetime, timedelta
+from datetime import timedelta
+import logging
 from textwrap import dedent
 
 from django.core.management.base import BaseCommand
-from django.db.models import Count
 from django.utils.timezone import now
 
 from ...models import FailedTask
