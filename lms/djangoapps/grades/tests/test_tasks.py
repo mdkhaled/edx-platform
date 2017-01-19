@@ -197,7 +197,7 @@ class RecalculateSubsectionGradeTest(ModuleStoreTestCase):
             self.set_up_course(enable_subsection_grades=False)
             self.assertFalse(PersistentGradesEnabledFlag.feature_enabled(self.course.id))
             with check_mongo_calls(0):
-                with self.assertNumQueries(0):
+                with self.assertNumQueries(1):
                     self._apply_recalculate_subsection_grade()
 
     @skip("Pending completion of TNL-5089")
